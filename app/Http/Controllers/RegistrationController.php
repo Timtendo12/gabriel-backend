@@ -10,15 +10,24 @@ class RegistrationController extends Controller
 {
     public function store(HttpFoundationRequest $request){
 
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'unique:users,email',
-            'password' => 'required'
+
+        $attributes = $request->validate([
+            'name' => ['required', 'min:3', 'max:255'],
+            'email' => ['required', 'email', 'unique:users,email'],
+            'password' => ['required', 'min:7', 'max:255']
         ]);
 
+//        $this->validate($request, [
+//            'name' => 'required',
+//            'email' => 'unique:users,email',
+//            'password' => 'required'
+//        ]);
 
 
-        $user = User::create(request(['name', 'email', 'password']));
+
+        $user = User::create($attributes);
+
+        auth()->login($user);
 
         return response()->json($user);
     }
