@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Swipe extends Model
 {
+    protected $table = "swipes";
+    protected $guarded = [];
     use HasFactory;
 }

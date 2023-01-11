@@ -18,3 +18,6 @@ use App\Http\Controllers\RegistrationController;
 
 Route::post('register', [RegistrationController::class, 'store']);
 Route::post('login', [LoginController::class, 'doLogin']);
+
+Route::post('swipe', [\App\Http\Controllers\SwipeController::class, 'swipe']);
+Route::post('get-swipes', [\App\Http\Controllers\SwipeController::class, 'getSwipes']);
