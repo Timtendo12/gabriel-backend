@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
+use App\Traits\TokenTrait;
 
 class RegistrationController extends Controller
 {
+    use tokenTrait;
     public function store(HttpFoundationRequest $request){
 
 
@@ -23,8 +25,7 @@ class RegistrationController extends Controller
 //            'password' => 'required'
 //        ]);
 
-
-
+        $attributes['APIToken'] = $this->generateToken();
         $user = User::create($attributes);
 
         auth()->login($user);

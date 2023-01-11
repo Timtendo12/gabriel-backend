@@ -7,9 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
+use App\Traits\tokenTrait;
 
-class LoginController extends Controller
-{
+class LoginController extends Controller{
+    use tokenTrait;
     public function doLogin(HttpFoundationRequest $request)
     {
         $validator = Validator::make($request->all(), [
@@ -20,13 +21,20 @@ class LoginController extends Controller
         if ($validator->fails()) {
             return response()->json(['status' => 'false', 'message' => 'not a email']);
         } else {
-            $user = User::where('email', '=', $request->email)->first();
+            $user = User::where('email', '=', $validator['email'])->first();
 
-            if (Hash::check($request->password, $user->password)) {
-                return response()->json(['status' => 'true', 'message' => 'Email is correct']);
+            if (Hash::check($validator['password'], $user->password)) {
+                //login successfull
+                $data = array([
+                    "user" => $user,
+                    "token" => $this->generateToken(),
+                    "status" => 200
+                ]);
+                return response()->json($data);
             } else {
-                return response()->json(['status' => 'false', 'message' => 'password is wrong']);
+                return response()->json(['status' => 'false', 'message' => 'login failed']);
             }
+
         }
     }
 }
