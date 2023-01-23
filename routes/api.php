@@ -18,3 +18,4 @@ use App\Http\Controllers\RegistrationController;
 
 Route::post('register', [RegistrationController::class, 'store']);
 Route::post('login', [LoginController::class, 'doLogin']);
+Route::get('logout', [LoginController::class, 'doLogout']);
