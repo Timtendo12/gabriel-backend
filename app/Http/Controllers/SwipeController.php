@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Swipe;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SwipeController extends Controller
 {
@@ -46,5 +49,19 @@ class SwipeController extends Controller
         ];
         return response()->json($data, 200);
 
+    }
+
+    //get logged in user
+    //check if company
+    //get a user to swipe from database
+
+
+    function showUserToSwipe(){
+        $userId = Auth()->id();
+        $isCompany = DB::table('users')->where('id', $userId)->get(['company'])->first();
+
+
+
+        return response()->json($userId);
     }
 }

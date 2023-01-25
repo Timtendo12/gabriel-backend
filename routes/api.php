@@ -25,4 +25,6 @@ Route::get('getInfo/{id}', [extraInfo::class, 'getExtraInfo']);
 
 Route::post('swipe', [\App\Http\Controllers\SwipeController::class, 'swipe']);
 Route::post('get-swipes', [\App\Http\Controllers\SwipeController::class, 'getSwipes']);
+Route::get('showUser', [\App\Http\Controllers\SwipeController::class, 'showUserToSwipe']);
+
 
