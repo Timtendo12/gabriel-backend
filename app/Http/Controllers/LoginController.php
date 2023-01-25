@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
@@ -37,4 +38,11 @@ class LoginController extends Controller{
 
         }
     }
+
+    public function doLogout(){
+        auth()->logout();
+        return response()->json(auth()->user());
+    }
+
+
 }
