@@ -43,6 +43,4 @@ class LoginController extends Controller{
         auth()->logout();
         return response()->json(auth()->user());
     }
-
-
 }
