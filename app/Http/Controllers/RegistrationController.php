@@ -32,7 +32,7 @@ class RegistrationController extends Controller
         $user->APIToken = $this->generateToken();
         $user->save();
 
-        dd($user, $attributes);
+        //dd($user, $attributes);
 
         $data = json_encode([
             "token" => $user->APIToken,
