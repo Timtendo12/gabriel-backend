@@ -40,10 +40,13 @@ trait tokenTrait {
      */
     public function getUserFromToken(string $token): User|bool
     {
+
+        $user = User::all()->where("APIToken", $token)->first();
+
         //checks if user exists with the given ID where the token is the same as the given token
-        if(User::all()->where("token", $token)->count() > 0){
+        if($user->count() > 0){
             //if returnUser is true, return the user else return boolean
-                return User::all()->where("token", $token)->first();
+                return $user;
             }
         //User does not exist or token is invalid so always return false.
         return false;

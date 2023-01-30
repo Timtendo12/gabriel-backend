@@ -28,8 +28,11 @@ class RegistrationController extends Controller
         $attributes['APIToken'] = $this->generateToken();
         $user = User::create($attributes);
 
-        auth()->login($user);
+        $data = json_encode([
+            "token" => $user->APIToken,
+            "status" => 200
+        ]);
 
-        return response()->json($user);
+        return response($data, 200);
     }
 }
