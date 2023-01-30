@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 use App\Traits\TokenTrait;
 
 class RegistrationController extends Controller
 {
     use tokenTrait;
-    public function store(HttpFoundationRequest $request){
+    public function store(Request $request){
 
 
         $attributes = $request->validate([
@@ -25,11 +24,21 @@ class RegistrationController extends Controller
 //            'password' => 'required'
 //        ]);
 
-        $attributes['APIToken'] = $this->generateToken();
+        $attributes['password'] = bcrypt($attributes['password']);
+
         $user = User::create($attributes);
 
-        auth()->login($user);
 
-        return response()->json($user);
+        $user->APIToken = $this->generateToken();
+        $user->save();
+
+        //dd($user, $attributes);
+
+        $data = json_encode([
+            "token" => $user->APIToken,
+            "status" => 200
+        ]);
+
+        return response($data, 200);
     }
 }
