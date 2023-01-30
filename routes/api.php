@@ -24,10 +24,11 @@ Route::post('authenticate', [LoginController::class, 'tokenLogin']);
 Route::post('login/token', [LoginController::class, 'tokenLogin']);
 
 Route::post('logout', [LoginController::class, 'doLogout']);
-Route::post('getInfo', [extraInfo::class, 'getExtraInfo']);
+Route::post('getinfo', [extraInfo::class, 'getExtraInfo']);
+Route::post('getuser', [extraInfo::class, 'getUser']);
 
 Route::post('swipe', [SwipeController::class, 'swipe']);
 Route::post('getswipes', [SwipeController::class, 'getSwipes']);
-Route::get('showUser', [SwipeController::class, 'showUserToSwipe']);
+Route::get('showuser', [SwipeController::class, 'showUserToSwipe']);
 
 

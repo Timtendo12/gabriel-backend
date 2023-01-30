@@ -11,7 +11,7 @@ class extraInfo extends Controller
     public function getExtraInfo(){
         $token = request('token');
 
-        $id = $this->getUserFromToken($token)[0]['id'];
+        $id = $this->getUserFromToken($token)['id'];
 
         $user = DB::table('extra_info_student')->where('userId', $id)->first();
         $name = DB::table('users')->where('id', $id)->first();
@@ -25,5 +25,18 @@ class extraInfo extends Controller
         return response($data, 200);
 
 
+    }
+
+    public function getUser() {
+        $token = request('token');
+
+        $user = $this->getUserFromToken($token);
+
+        $data = json_encode([
+            "user" => $user,
+            "status" => 200
+        ]);
+
+        return response($data, 200);
     }
 }
