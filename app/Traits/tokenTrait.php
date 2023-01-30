@@ -21,7 +21,6 @@ trait tokenTrait {
     /**
      * @param $token String APIToken to check
      * @param $userID int ID of the user to check
-     * @param $returnUser boolean If true, the user will be returned
      * @return boolean|User Returns true if the token is valid, false if not. If $returnUser is true, the user will be returned.
      */
     public function checkToken(string $token, int $userID): User|bool
