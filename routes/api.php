@@ -19,6 +19,7 @@ use App\Http\Controllers\RegistrationController;
 
 Route::post('register', [RegistrationController::class, 'store']);
 Route::post('login', [LoginController::class, 'doLogin']);
+Route::post('login/token', [LoginController::class, 'tokenLogin']);
 
 Route::get('logout', [LoginController::class, 'doLogout']);
 Route::get('getInfo/{id}', [extraInfo::class, 'getExtraInfo']);
