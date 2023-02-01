@@ -18,11 +18,6 @@ class RegistrationController extends Controller
             'password' => ['required', 'min:7', 'max:255']
         ]);
 
-//        $this->validate($request, [
-//            'name' => 'required',
-//            'email' => 'unique:users,email',
-//            'password' => 'required'
-//        ]);
 
         $attributes['password'] = bcrypt($attributes['password']);
 
