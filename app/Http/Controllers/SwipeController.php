@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Request as HttpFoundationRequest;
 
 class SwipeController extends Controller
 {
@@ -56,7 +57,7 @@ class SwipeController extends Controller
     //get a user to swipe from database
 
 
-    function showUserToSwipe(){
+    function showUserToSwipe(HttpFoundationRequest $request, $token){
         $userId = Auth()->id();
         $isCompany = DB::table('users')->where('id', $userId)->get(['company'])->first();
 
