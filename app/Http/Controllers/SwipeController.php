@@ -61,8 +61,6 @@ class SwipeController extends Controller
         $userId = Auth()->id();
         $isCompany = DB::table('users')->where('id', $userId)->get(['company'])->first();
 
-
-
         return response()->json($userId);
     }
 }
