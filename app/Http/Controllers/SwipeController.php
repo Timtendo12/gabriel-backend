@@ -20,6 +20,7 @@ class SwipeController extends Controller
         if (Swipe::all()->where("company_id", $companyID)->where("student_id", $studentID)->count() > 0) {
             return response()->json(["message" => "Swipe already exists"], 400);
         } else {
+            //creates new swipe
             $swipe = new Swipe();
             $swipe->company_id = $companyID;
             $swipe->student_id = $studentID;
@@ -29,7 +30,9 @@ class SwipeController extends Controller
     }
 
     public function getSwipes() {
+        //get id from request
         $user = \request("user_id");
+        //gets the type from the request
         $type = \request("type");
 
         switch ($type) {
@@ -57,12 +60,17 @@ class SwipeController extends Controller
     //get a user to swipe from database
 
 
-    function showUserToSwipe(HttpFoundationRequest $request, $token){
-        $userId = Auth()->id();
-        $isCompany = DB::table('users')->where('id', $userId)->get(['company'])->first();
+    function showUserToSwipe(){
+        //get user from token
+        $token = request('token');
+
+
+        $user = $this->getUserFromToken($token);
+
+        $isCompany = DB::table('users')->where('id', $user['id'])->get(['company'])->first();
 
 
 
-        return response()->json($userId);
+        return response()->json($user['id']);
     }
 }

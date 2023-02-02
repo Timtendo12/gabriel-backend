@@ -9,29 +9,37 @@ class extraInfo extends Controller
 {
     use tokenTrait;
     public function getExtraInfo(){
+        //gets token from the request
         $token = request('token');
 
-        $id = $this->getUserFromToken($token)['id'];
+        //gets the user from the token
+        $user = $this->getUserFromToken($token);
 
-        $user = DB::table('extra_info_student')->where('userId', $id)->first();
-        $name = DB::table('users')->where('id', $id)->first();
+        //gets the extra info from the database
+        $extraInfo = DB::table('extra_info_student')->where('userId', $user['id'])->first();
 
+        //returns extra info and user
         $data = json_encode([
+            "extraInfo" => $extraInfo,
             "user" => $user,
-            "username" => $name,
             "status" => 200
         ]);
 
+        //returns json data with 200
         return response($data, 200);
 
 
     }
 
     public function getUser() {
+        //the token from the request
         $token = request('token');
 
+        //gets the user from the token
         $user = $this->getUserFromToken($token);
 
+
+        //returns the user in json format.
         $data = json_encode([
             "user" => $user,
             "status" => 200
