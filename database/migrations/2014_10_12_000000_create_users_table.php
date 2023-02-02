@@ -20,6 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->smallInteger('userType')->default(1);  //assuming 1 = student, 0 = company
+            //Token which the user can authenticate with
             $table->string("APIToken")->unique()->nullable();
             $table->rememberToken();
             $table->timestamps();
